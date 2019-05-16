@@ -1,0 +1,36 @@
+// sniper algılayıcı tasarımı
+//ses hangi mikrofona yakınsa onu belirlemek için 
+//arduino kodları
+int s_mavi=10;
+int b_yesil =5;
+void setup() {
+  pinMode(5,OUTPUT);
+  pinMode(10,OUTPUT);
+  Serial.begin(5000);
+}
+
+void loop() {
+
+
+  int ses1=analogRead(A0);
+  int ses2=analogRead(A5);
+  if(ses1>18&&ses2>18)//gürültüyü yok saymak için 
+  {
+    if(ses1>ses2-4) // -4 hassasiyet farkı
+    {
+      digitalWrite(s_mavi,HIGH);//ses1 mikrofonunun bulunduğu 
+      digitalWrite(b_yesil,LOW);//yerdeki ledi yakmak için
+      //delay(1000);
+    }
+    if(ses2>ses1+4)
+    {
+      digitalWrite(b_yesil,HIGH);
+      digitalWrite(s_mavi,LOW);
+      //delay(500);
+     }
+  }
+ 
+  ses1=0;
+  ses2=0;
+ 
+}
